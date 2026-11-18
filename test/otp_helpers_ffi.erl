@@ -19,7 +19,7 @@ with_outputs(Level, Fun) ->
     JsonConsole = spawn(fun() -> capture([]) end),
     try
       ok = logger:set_primary_config(level, Level),
-      glight:configure([console, console_json, {file, list_to_binary(Path)}]),
+      {ok, nil} = glight:configure([console, console_json, {file, list_to_binary(Path)}]),
       glight:set_is_color(false),
       lists:foreach(fun(H = #{id := Id, formatter := {glight_ffi, Fmt}, config := HC}) ->
                        case maps:get(type, HC) of
